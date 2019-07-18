@@ -70,8 +70,6 @@ int DC, /* counts amount of data entrys */
 Symbol* symbolList; /* holds all data entrys of the file */
 File* src; /* holds environment addresses for the current source file */
 
-int data(int linenum);
-int string(int lineNum);
 int loadFile(char* fExt); /* loads the current file, in the mode (w,r) right for it. */
 int loadSrcFile(char* name);
 int assemble();

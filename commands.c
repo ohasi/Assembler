@@ -45,7 +45,7 @@ int entry(int lineNum){
         if (returned != USED_LABEL)
             return ILLEGAL_LABEL;
         else;
-    else if (firstPass == TRUE)
+    if (firstPass == TRUE)
         return 0;
     else {
         if(returned != USED_LABEL){
@@ -61,4 +61,21 @@ int entry(int lineNum){
                 }
             return UNKNOWN_LABEL;
     }
+}
+
+int external(int lineNum){
+    int i4, returned;
+    char* nextWord;
+    nextWord = strtok(NULL, " \n");
+    if(strtok(NULL, " \n") != NULL){
+        err(TOO_MANY_PARAMETERS, nextWord, lineNum);
+        return TOO_MANY_PARAMETERS;
+    }
+    else if((returned = checkLabel(nextWord)) != 0)
+        if (returned == USED_LABEL)
+            return USED_LABEL;
+        else;
+    else if (firstPass == TRUE)
+        addSymbol(nextWord, NULL, NULL);
+    return 0;
 }

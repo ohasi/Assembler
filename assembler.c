@@ -12,6 +12,10 @@ char* commands[] = {"mov", "cmp", "add", "sub", "lea", "not", "clr", "inc", "dec
 void rmvLnSpaces(char* line); /* make sure theres no occurrence of multiple spaces in the line */
 int checkLabel(char* label);
 int getFirstWord(char* word);
+int data(int linenum);
+int string(int lineNum);
+int external(int lineNum);
+int entry(int lineNum);
 
 int assemble(){
     char* currLine;
@@ -45,6 +49,7 @@ int assemble(){
                 entry(lnNumber);
                 break;
             case 4: /* .extern */
+                external(lnNumber);
                 break;
             case 5: /* .define */
                 break;
