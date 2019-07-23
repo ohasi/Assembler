@@ -10,7 +10,7 @@
 #define MAXSIZE 256
 /* error codes */
 enum errors{
-    UNKNOWN_ERROR = 1,
+    UNKNOWN_ERROR = 2,
     NO_SOURCE_FILE,
     CANT_OPEN_FILE,
     CANT_WRITE_TO_FILE,
@@ -26,12 +26,18 @@ enum errors{
     NUMBER_EXPECTED,
     TOO_MANY_PARAMETERS,
     STRING_EXPECTED,
-    UNKNOWN_LABEL
+    UNKNOWN_LABEL,
+    USELESS_LABEL,
+    NOT_ENOUGH_PARAMETERS,
+    ILLEGAL_CONTEXT,
+    UNKNOWN_MACRO,
+    ILLEGAL_PARAMETER
 };
 
 enum { 
     macro, 
-    code
+    code,
+    exter
 };
 /* structure to hold environment addresses of files */
 typedef struct {
@@ -53,30 +59,26 @@ typedef struct {
 } Word;
 
 typedef struct {
-    unsigned int VALUE: 14
+    unsigned int VALUE: 14;
 } InstructionWord;
 /* structure to hold a data entry's name and value */
-typedef struct {
-    char* label;
-    int value;
-    int type;
-} Symbol;
-
-int DC, /* counts amount of data entrys */
-    IC, /* counts amount of instructions */
-    SC,
+int errNum,
     firstPass;
-    *dataList;
-Symbol* symbolList; /* holds all data entrys of the file */
 File* src; /* holds environment addresses for the current source file */
 
 int loadFile(char* fExt); /* loads the current file, in the mode (w,r) right for it. */
 int loadSrcFile(char* name);
 int assemble();
-int addSymbol(char* dLabel, int dValue, int type);
-int addData(int value);
+int err(int errCode, char* line, int lnNum);
+int getSymbol(char* symbol);
+int checkLabel(char* cLabel);
+int writeEntry(char* entryLabel);
+int isMacroDefined(char* macroLabel);
+int getMacro(char* macroLabel);
 void closeFiles();
 void initFiles();
-void err(int errCode, char* word, int lnNum);
+void nextInstruction();
+void addSymbol(char* dLabel, int dValue, int type);
+void addData(int value);
 
 #endif
