@@ -1,5 +1,5 @@
 CC  = gcc
-OBJS = main.c files.c extFuncs.c assembler.c data.c commands.c parsing.c
+OBJS = main.c files.c errors.c assembler.c data.c commands.c parsing.c
 CFLAGS = -g -Wall -ansi -pedantic
 
 assembler: $(OBJS)
